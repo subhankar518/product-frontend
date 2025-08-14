@@ -2,7 +2,6 @@
     "name": "frontend",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://subhankar518.github.io/product-frontend/",
     "proxy": "https://product-backend-2fqo.onrender.com",
     "dependencies": {
         "@reduxjs/toolkit": "^2.8.2",
