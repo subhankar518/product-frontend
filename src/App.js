@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Login from "./features/auth/Login";
+import Register from "./features/auth/Register";
+import UserDashboard from "./features/dashboard/UserDashboard";
+import AdminDashboard from "./features/dashboard/AdminDashboard";
+import ProductList from "./features/products/ProductList";
+import ProductCreate from "./features/products/ProductCreate";
+import OrderCreate from "./features/orders/OrderCreate";
+import PrivateRoute from "./components/PrivateRoute";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <div className="container py-4">
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          <Route element={<PrivateRoute allowedRoles={["user", "admin"]} />}>
+            <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/orders/new" element={<OrderCreate />} />
+          </Route>
+
+          <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/products/new" element={<ProductCreate />} />
+          </Route>
+
+          <Route path="*" element={<p>Not Found</p>} />
+        </Routes>
+      </div>
     </div>
   );
 }
-
-export default App;
