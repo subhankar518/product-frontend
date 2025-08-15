@@ -11,29 +11,36 @@ import OrderCreate from "./features/orders/OrderCreate";
 import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
-  return (
-    <div>
-      <Navbar />
-      <div className="container py-4">
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+    return (
+        <div>
+            <Navbar />
+            <div className="container py-4">
+                <Routes>
+                    <Route path="/" element={<Navigate to="/dashboard" />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
-          <Route element={<PrivateRoute allowedRoles={["user", "admin"]} />}>
-            <Route path="/dashboard" element={<UserDashboard />} />
-            <Route path="/products" element={<ProductList />} />
-            <Route path="/orders/new" element={<OrderCreate />} />
-          </Route>
+                    <Route
+                        element={
+                            <PrivateRoute allowedRoles={["user", "admin"]} />
+                        }
+                    >
+                        <Route path="/dashboard" element={<UserDashboard />} />
+                        <Route path="/products" element={<ProductList />} />
+                        <Route path="/orders/new" element={<OrderCreate />} />
+                    </Route>
 
-          <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/products/new" element={<ProductCreate />} />
-          </Route>
+                    <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+                        <Route path="/admin" element={<AdminDashboard />} />
+                        <Route
+                            path="/products/new"
+                            element={<ProductCreate />}
+                        />
+                    </Route>
 
-          <Route path="*" element={<p>Not Found</p>} />
-        </Routes>
-      </div>
-    </div>
-  );
+                    <Route path="*" element={<p>Hi</p>} />
+                </Routes>
+            </div>
+        </div>
+    );
 }
